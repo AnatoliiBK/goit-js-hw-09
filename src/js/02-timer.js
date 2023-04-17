@@ -8,33 +8,28 @@ const buttonR = document.querySelector("[data-start");
 const timerR = document.querySelector(".timer");
 
 const currentTime = new Date();
-const selectedDates = new Date(flatpickr) 
-
+ 
+let timerId; 
 
 console.log(currentTime)
-console.log(timerR)
-console.log(convertMs(currentTime.setFullYear(convertMs(selectedDates)) - Date.now()))
 console.log(Date.now())
-console.log(selectedDates)
 
-const onButtonR = () => {
+const onButtonR = (selectedDates) => {
   timerId = setInterval(() => {
-    // console.log(convertMs(selectedDates[0].getTime()))
-    
-    if (!(buttonR.setAttribute("disabled", true))) {
-      convertMs(selectedDates - Date.now());
+    let timeLeft = selectedDates[0].getTime() - Date.now();
+    console.log(selectedDates[0].getTime())
+    console.log(Date.now())
+    if (timeLeft >= 1000) {
+      convertMs(timeLeft);
+      console.log(timeLeft)
     } else {
       clearInterval(timerId);
     }
-  })
+  }, 1000)
 }
+
 buttonR.setAttribute("disabled", true)
 buttonR.addEventListener("click", onButtonR)
-
-setInterval(() => {
-  
-    // console.log(convertMs(selectedDates - Date.now()))
-}, 1000)
 
 const options = {
     enableTime: true,
@@ -46,12 +41,13 @@ const options = {
       console.log(selectedDates[0].getTime());
       console.log(options.defaultDate.getTime())
       console.log(convertMs(selectedDates[0].getTime()))
+      console.log(convertMs(options.defaultDate.getTime()))
 
-      if (selectedDates[0].getTime() - options.defaultDate.getTime() > 0) {
+      if (selectedDates[0].getTime() - options.defaultDate.getTime() > 1000) {
         buttonR.removeAttribute("disabled", true)
       } else {
         alert("Please choose a date in the future");
-        Notify.failure("Please choose a date in the future")
+        
       }
     },
   };
@@ -77,9 +73,9 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
-console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
-console.log(convertMs(140000)); // {days: 0, hours: 0, minutes: 2, seconds: 20}
-console.log(convertMs(24140000)); // {days: 0, hours: 6 minutes: 42, seconds: 20}
+// console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
+// console.log(convertMs(140000)); // {days: 0, hours: 0, minutes: 2, seconds: 20}
+// console.log(convertMs(24140000)); // {days: 0, hours: 6 minutes: 42, seconds: 20}
 
 
 buttonR.style.width = "60px"
