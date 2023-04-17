@@ -6,15 +6,14 @@ import "flatpickr/dist/flatpickr.min.css";
 const inputR = document.querySelector("#datetime-picker");
 const buttonR = document.querySelector("[data-start");
 const timerR = document.querySelector(".timer");
-
-const currentTime = new Date();
- 
+let selectedDates;
+const currentTime = new Date(); 
 let timerId; 
 
 console.log(currentTime)
 console.log(Date.now())
 
-const onButtonR = (selectedDates) => {
+const onButtonR = () => {
   timerId = setInterval(() => {
     let timeLeft = selectedDates[0].getTime() - Date.now();
     console.log(selectedDates[0].getTime())
@@ -36,6 +35,7 @@ const options = {
     time_24hr: true,
     defaultDate: new Date(),
     minuteIncrement: 1,
+
     onClose(selectedDates) {
 
       console.log(selectedDates[0].getTime());
@@ -46,8 +46,7 @@ const options = {
       if (selectedDates[0].getTime() - options.defaultDate.getTime() > 1000) {
         buttonR.removeAttribute("disabled", true)
       } else {
-        alert("Please choose a date in the future");
-        
+        alert("Please choose a date in the future");  
       }
     },
   };
@@ -78,8 +77,10 @@ function convertMs(ms) {
 // console.log(convertMs(24140000)); // {days: 0, hours: 6 minutes: 42, seconds: 20}
 
 
-buttonR.style.width = "60px"
-buttonR.style.height = "30px"
+buttonR.style.width = "68px";
+buttonR.style.height = "30px";
+buttonR.style.fontSize = "18px";
+buttonR.style.marginLeft = "10px";
 
 timerR.style.display = "flex";
 timerR.style.columnGap = "30px";

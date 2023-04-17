@@ -26,3 +26,8 @@ img {
 .value {
   font-size: 52px;
 }
+
+.flatpickr-input {
+  height: 30px;
+  font-size: 18px;
+}
