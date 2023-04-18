@@ -12,9 +12,11 @@ const secondsR = document.querySelector("[data-seconds]");
 
 const timerR = document.querySelector(".timer");
 
-const currentTime = new Date(); 
+const currentTime = new Date();
+
 let timerId;
-let timeLeftVis ={}
+let timeLeftVis ={};
+
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -36,18 +38,13 @@ const options = {
   },
 };
 
-const flatPickr = flatpickr(inputR, options)
-
-console.log(currentTime)
-console.log(Date.now())
-console.log(flatPickr)
+const flatPickr = flatpickr(inputR, options);
 
 const onButtonR = () => {
   timerId = setInterval(() => {
 
     let timeLeft = flatPickr.selectedDates[0].getTime() - Date.now();
-    console.log(timeLeft)
-    console.log(timeLeftVis)
+    
     if (timeLeft >= 1000) {
       timeLeftVis = convertMs(timeLeft);
       daysR.textContent = timeLeftVis.days;
@@ -62,10 +59,6 @@ const onButtonR = () => {
 
 buttonR.setAttribute("disabled", true)
 buttonR.addEventListener("click", onButtonR)
-
-
-
-// flatpickr(inputR, options);
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time
@@ -86,11 +79,6 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
-// console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
-// console.log(convertMs(140000)); // {days: 0, hours: 0, minutes: 2, seconds: 20}
-// console.log(convertMs(24140000)); // {days: 0, hours: 6 minutes: 42, seconds: 20}
-
-
 buttonR.style.width = "68px";
 buttonR.style.height = "30px";
 buttonR.style.fontSize = "18px";
@@ -101,42 +89,10 @@ timerR.style.columnGap = "30px";
 
 
 
+// console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
+// console.log(convertMs(140000)); // {days: 0, hours: 0, minutes: 2, seconds: 20}
+// console.log(convertMs(24140000)); // {days: 0, hours: 6 minutes: 42, seconds: 20}
 
-
-
-
-
-
-
-
-
-
-// const fieldR = document.querySelector(".field");
-// const valueR = document.querySelector(".value");
-// const daysR = document.querySelector("[data-days");
-// const hoursR = document.querySelector("[data-hours");
-// const minutesR = document.querySelector("data-minutes");
-// const secondsR = document.querySelector("data-seconds");
-
-// const currentYear = currentTime.getFullYear();
-// const currentMonth = currentTime.getMonth();
-
-// timerR.style.justifyContent = "center"
-// inputR.style.width = "700px"
-// inputR.style.height = "48px"
-
-// const nextDate = new Date(`January 01 ${currentYear + 1} 00:00:00`)
-// const diff = nextDate - currentTime
-
-// const daysLeft = Math.floor(diff / 1000 / 60 / 60 / 24);
-// const hoursLeft = Math.floor(diff / 1000 / 60 / 60) % 24;
-// const minutesLeft = Math.floor(diff / 1000 / 60) % 60;
-// const seconsLeft = Math.floor(diff / 1000) % 60;
-
-// console.log(daysLeft, hoursLeft, minutesLeft, seconsLeft)
-
-// daysR.innerText = daysLeft;
-// hoursR.innerText = hoursLeft;
-// minutesR.innerText = minutesLeft
-// secondsR.innerText = seconsLeft
-  
+// console.log(currentTime)
+// console.log(Date.now())
+// console.log(flatPickr)
