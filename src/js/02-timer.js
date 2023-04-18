@@ -39,14 +39,15 @@ const onButtonR = () => {
   timerId = setInterval(() => {
     buttonR.setAttribute("disabled", true);
     buttonR.removeEventListener("click", onButtonR);
+    
     let timeLeft = flatPickr.selectedDates[0].getTime() - Date.now();
     
     if (timeLeft >= 1000) {
       timeLeftVis = convertMs(timeLeft);
-      daysR.textContent = timeLeftVis.days;
-      hoursR.textContent = timeLeftVis.hours;
-      minutesR.textContent = timeLeftVis.minutes;
-      secondsR.textContent = timeLeftVis.seconds;
+      daysR.textContent = timeLeftVis.days.toString().padStart(2, "0");
+      hoursR.textContent = timeLeftVis.hours.toString().padStart(2, "0");
+      minutesR.textContent = timeLeftVis.minutes.toString().padStart(2, "0");
+      secondsR.textContent = timeLeftVis.seconds.toString().padStart(2, "0");
     } else {
       clearInterval(timerId);
     }
