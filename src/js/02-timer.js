@@ -4,23 +4,56 @@ import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 
 const inputR = document.querySelector("#datetime-picker");
-const buttonR = document.querySelector("[data-start");
+const buttonR = document.querySelector("[data-start]");
+const daysR = document.querySelector("[data-days]");
+const hoursR = document.querySelector("[data-hours]");
+const minutesR = document.querySelector("[data-minutes]");
+const secondsR = document.querySelector("[data-seconds]");
+
 const timerR = document.querySelector(".timer");
-let selectedDates;
+
 const currentTime = new Date(); 
-let timerId; 
+let timerId;
+let timeLeftVis ={}
+const options = {
+  enableTime: true,
+  time_24hr: true,
+  defaultDate: new Date(),
+  minuteIncrement: 1,
+
+  onClose(selectedDates) {
+
+    console.log(selectedDates[0].getTime());
+    console.log(options.defaultDate.getTime())
+    console.log(convertMs(selectedDates[0].getTime()))
+    console.log(convertMs(options.defaultDate.getTime()))
+
+    if (selectedDates[0].getTime() - options.defaultDate.getTime() > 1000) {
+      buttonR.removeAttribute("disabled", true)
+    } else {
+      alert("Please choose a date in the future");  
+    }
+  },
+};
+
+const flatPickr = flatpickr(inputR, options)
 
 console.log(currentTime)
 console.log(Date.now())
+console.log(flatPickr)
 
 const onButtonR = () => {
   timerId = setInterval(() => {
-    let timeLeft = selectedDates[0].getTime() - Date.now();
-    console.log(selectedDates[0].getTime())
-    console.log(Date.now())
+
+    let timeLeft = flatPickr.selectedDates[0].getTime() - Date.now();
+    console.log(timeLeft)
+    console.log(timeLeftVis)
     if (timeLeft >= 1000) {
-      convertMs(timeLeft);
-      console.log(timeLeft)
+      timeLeftVis = convertMs(timeLeft);
+      daysR.textContent = timeLeftVis.days;
+      hoursR.textContent = timeLeftVis.hours;
+      minutesR.textContent = timeLeftVis.minutes;
+      secondsR.textContent = timeLeftVis.seconds;
     } else {
       clearInterval(timerId);
     }
@@ -30,28 +63,9 @@ const onButtonR = () => {
 buttonR.setAttribute("disabled", true)
 buttonR.addEventListener("click", onButtonR)
 
-const options = {
-    enableTime: true,
-    time_24hr: true,
-    defaultDate: new Date(),
-    minuteIncrement: 1,
 
-    onClose(selectedDates) {
 
-      console.log(selectedDates[0].getTime());
-      console.log(options.defaultDate.getTime())
-      console.log(convertMs(selectedDates[0].getTime()))
-      console.log(convertMs(options.defaultDate.getTime()))
-
-      if (selectedDates[0].getTime() - options.defaultDate.getTime() > 1000) {
-        buttonR.removeAttribute("disabled", true)
-      } else {
-        alert("Please choose a date in the future");  
-      }
-    },
-  };
-
-flatpickr(inputR, options);
+// flatpickr(inputR, options);
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time
