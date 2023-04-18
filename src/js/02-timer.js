@@ -25,11 +25,6 @@ const options = {
 
   onClose(selectedDates) {
 
-    console.log(selectedDates[0].getTime());
-    console.log(options.defaultDate.getTime())
-    console.log(convertMs(selectedDates[0].getTime()))
-    console.log(convertMs(options.defaultDate.getTime()))
-
     if (selectedDates[0].getTime() - options.defaultDate.getTime() > 1000) {
       buttonR.removeAttribute("disabled", true)
     } else {
@@ -42,7 +37,8 @@ const flatPickr = flatpickr(inputR, options);
 
 const onButtonR = () => {
   timerId = setInterval(() => {
-
+    buttonR.setAttribute("disabled", true);
+    buttonR.removeEventListener("click", onButtonR);
     let timeLeft = flatPickr.selectedDates[0].getTime() - Date.now();
     
     if (timeLeft >= 1000) {
@@ -96,3 +92,8 @@ timerR.style.columnGap = "30px";
 // console.log(currentTime)
 // console.log(Date.now())
 // console.log(flatPickr)
+
+// console.log(selectedDates[0].getTime());
+// console.log(options.defaultDate.getTime())
+// console.log(convertMs(selectedDates[0].getTime()))
+// console.log(convertMs(options.defaultDate.getTime()))
