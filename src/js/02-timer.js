@@ -44,7 +44,7 @@ const onButtonR = () => {
     
     let timeLeft = flatPickr.selectedDates[0].getTime() - Date.now();
     
-    if (timeLeft >= 1000) {
+    if (timeLeft > 1000) {
       timeLeftVis = convertMs(timeLeft);
       daysR.textContent = timeLeftVis.days.toString().padStart(2, "0");
       hoursR.textContent = timeLeftVis.hours.toString().padStart(2, "0");
