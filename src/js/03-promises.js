@@ -3,14 +3,13 @@ const formR = document.querySelector(".form");
 formR.addEventListener("submit", onFormSubmit);
 
 function onFormSubmit(event) {
-  event.preventdefault();
+  event.preventDefault();
   
   const {delay, step, amount} = event.target.elements;
   
   const delayValue = Number(delay.value);
   const amountValue = Number(amount.value);
   const stepValue = Number(step.value);
-  
 
   for (let i = 1; i <= amountValue; i += 1) {
     createPromise(i, delayValue).then(({position, delay}) => {
@@ -27,7 +26,7 @@ function onFormSubmit(event) {
 
 function createPromise(position, delay) {
   const shouldResolve = Math.random() > 0.3;
-  return promice = new Promice((res, rej) => {
+  return new Promice((res, rej) => {
     setInterval(() => {
       if (shouldResolve) {
         res({position, delay})
