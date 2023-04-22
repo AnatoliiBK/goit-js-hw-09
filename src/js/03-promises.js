@@ -15,11 +15,15 @@ function onFormSubmit(event) {
 
   for (let i = 1; i <= amountValue; i += 1) {
     createPromise(i, delayValue).then(({position, delay}) => {
-      Notiflix.Notify.info(`✅ Fulfilled promise ${position} in ${delay}ms`);
+      setTimeout(() => {
+        Notiflix.Notify.info(`✅ Fulfilled promise ${position} in ${delay}ms`);
+      }, delayValue);
       console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
     })
     .catch(({position, delay}) => {
-      Notiflix.Notify.info(`❌ Rejected promise ${position} in ${delay}ms`);
+      setTimeout(() => {
+        Notiflix.Notify.info(`❌ Rejected promise ${position} in ${delay}ms`);
+      }, delayValue);
       console.log(`❌ Rejected promise ${position} in ${delay}ms`);
     });
     delayValue += stepValue;
